@@ -8,6 +8,9 @@ services:
     ports:
       - "8000:8000"  # Пробрасываем порт
     environment:
+      - SECRET_KEY=my_secret_key
+      - ALGORITHM=HS256
+      - ACCESS_TOKEN_EXPIRE_MINUTES=30
       - DATABASE_URL=postgresql+asyncpg://ilya:12345@db/mobile_app
       - DATABASE_URL_ALEMBIC=postgresql://ilya:12345@db/mobile_app
     command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
