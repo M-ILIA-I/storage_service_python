@@ -60,6 +60,7 @@ class BatchSchema(BaseModel):
         
 
 class DataStorageSchema(BaseModel):
+    product_id: int
     part: int
     price: float
     quantity: float

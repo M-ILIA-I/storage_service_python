@@ -26,6 +26,7 @@ class StotageHandler():
         try:
             query = (
                 select(
+                        Product.id.label("product_id"), 
                         Batch.part,
                         Batch.price,
                         Batch.quantity,
