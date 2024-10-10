@@ -2,6 +2,7 @@ from fastapi import Depends, HTTPException
 from modules.connection_to_db.database import get_async_session
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.future import select
+from sqlalchemy import and_
 from modules.schemas.storage_schemas import ResponseDataStorageSchema, DataStorageSchema
 from modules.models.batch import Batch
 from modules.models.product import Product
@@ -10,6 +11,7 @@ from modules.models.products_name import ProductsName
 from modules.models.products_producer import ProductsProducer
 from modules.models.nomenclature import Nomenclature
 from modules.models.mark import Mark
+from modules.schemas.storage_schemas import MarksDataRequestSchema, ResponseMarksSchema
 
 
 class StotageHandler():
@@ -26,6 +28,7 @@ class StotageHandler():
         try:
             query = (
                 select(
+                        Batch.id.label("batch_id"),
                         Product.id.label("product_id"), 
                         Batch.part,
                         Batch.price,
@@ -56,3 +59,15 @@ class StotageHandler():
                 
         except HTTPException as e:
             return self.Error(str(e))
+        
+        
+    async def get_marks_data(self, request_data: MarksDataRequestSchema) -> ResponseMarksSchema:
+        try:
+            query = select(Mark).where(
+                                        and_(
+                                        Mark.batch_id == request_data.batch_id,
+                                        Mark.uniq_code == request_data.uniq_code
+                                        ))
+        except HTTPException as e:
+            return self.Error(str(e))
+            

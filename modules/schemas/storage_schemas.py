@@ -60,6 +60,7 @@ class BatchSchema(BaseModel):
         
 
 class DataStorageSchema(BaseModel):
+    batch_id: int
     product_id: int
     part: int
     price: float
@@ -79,4 +80,22 @@ class ResponseDataStorageSchema(BaseModel):
     status: str
     code: int
     data: List[DataStorageSchema]
+    
+    
+class MarksDataRequestSchema(BaseModel):
+    batch_id: int
+    uniq_code: UUID
+    
+
+class MarksData(BaseModel):
+    UKZ: str
+    SI: str
+    is_sold: bool
+    
+
+class ResponseMarksSchema(BaseModel):
+    status: str
+    code: int
+    data: MarkSchema
+    
     
