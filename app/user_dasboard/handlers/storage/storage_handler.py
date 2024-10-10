@@ -49,8 +49,7 @@ class StotageHandler():
             )
             result = await self.session.execute(query)
             data = result.mappings().all()
-            # for i in data:
-            #     print(i)
+            
             data_storage = [DataStorageSchema(**i) for i in data]
             
             return ResponseDataStorageSchema(data=data_storage, status="ok", code=200)
