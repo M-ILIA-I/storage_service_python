@@ -14,4 +14,4 @@ async def get_storage_data(
     request_data: MarksDataRequestSchema,
     # user = Depends(get_current_user)
 ):
-    return await handler.get_storage_data(request_data)
+    return await handler.get_marks_data(request_data)

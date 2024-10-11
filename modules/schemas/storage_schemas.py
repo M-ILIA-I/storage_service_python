@@ -88,14 +88,14 @@ class MarksDataRequestSchema(BaseModel):
     
 
 class MarksData(BaseModel):
-    UKZ: str
-    SI: str
-    is_sold: bool
+    UKZ: str | None
+    SI: str | None
+    is_sold: bool | None
     
 
 class ResponseMarksSchema(BaseModel):
     status: str
     code: int
-    data: MarkSchema
+    data: MarksData
     
     

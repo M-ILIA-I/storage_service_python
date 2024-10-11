@@ -11,7 +11,7 @@ from modules.models.products_name import ProductsName
 from modules.models.products_producer import ProductsProducer
 from modules.models.nomenclature import Nomenclature
 from modules.models.mark import Mark
-from modules.schemas.storage_schemas import MarksDataRequestSchema, ResponseMarksSchema
+from modules.schemas.storage_schemas import MarksDataRequestSchema, ResponseMarksSchema, MarksData
 
 
 class StotageHandler():
@@ -68,6 +68,17 @@ class StotageHandler():
                                         Mark.batch_id == request_data.batch_id,
                                         Mark.uniq_code == request_data.uniq_code
                                         ))
+            result = await self.session.execute(query)
+            response = MarksData(UKZ=None, SI=None, is_sold=False)
+            
+            for item in result.scalars().all():
+                if item.type_mark.value == 1:
+                    response.UKZ = item.value
+                else:
+                    response.SI = item.value
+                response.is_sold = item.is_sold
+            
+            return ResponseMarksSchema(code=200, status="ok", data=response)
         except HTTPException as e:
             return self.Error(str(e))
             
