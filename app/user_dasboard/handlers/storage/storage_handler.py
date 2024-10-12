@@ -74,7 +74,7 @@ class StotageHandler():
                                         Mark.uniq_code == request_data.uniq_code
                                         ))
             result = await self.session.execute(query)
-            response = MarksData(UKZ=None, SI=None, is_sold=False)
+            response = MarksData()
             
             for item in result.scalars().all():
                 if item.type_mark.value == 1:

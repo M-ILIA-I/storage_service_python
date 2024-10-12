@@ -85,9 +85,9 @@ class MarksDataRequestSchema(BaseModel):
     
 
 class MarksData(BaseModel):
-    UKZ: str | None
-    SI: str | None
-    is_sold: bool | None
+    UKZ: str | None = "-"
+    SI: str | None = "-"
+    is_sold: bool | None = False
     
 
 class ResponseMarksSchema(BaseModel):
