@@ -66,9 +66,6 @@ class DataStorageSchema(BaseModel):
     price: float
     quantity: float
     uniq_code: UUID | None
-    value: str
-    type_mark: str
-    is_sold: bool
     ean: str
     type_product: str
     product_name: str

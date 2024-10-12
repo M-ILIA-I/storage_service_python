@@ -26,33 +26,38 @@ class StotageHandler():
     
     async def get_storage_data(self) -> ResponseDataStorageSchema:
         try:
+            # Подзапрос для получения batch_id и uniq_code
+            subquery = (
+                select(Mark.batch_id, Mark.uniq_code)
+                .group_by(Mark.batch_id, Mark.uniq_code)
+            ).subquery()
+
+            # Основной запрос с INNER JOIN
             query = (
                 select(
-                        Batch.id.label("batch_id"),
-                        Product.id.label("product_id"), 
-                        Batch.part,
-                        Batch.price,
-                        Batch.quantity,
-                        Mark.uniq_code,
-                        Mark.value,
-                        Mark.type_mark,
-                        Mark.is_sold,
-                        Product.ean,
-                        Product.type_product,
-                        ProductsCountry.name.label("product_country"),
-                        ProductsName.name.label("product_name"),
-                        ProductsProducer.name.label("product_producer")
+                    Product.id.label("product_id"),
+                    Batch.id.label("batch_id"),
+                    Batch.part,
+                    Batch.price,
+                    Batch.quantity,
+                    subquery.c.uniq_code.label("uniq_code"),
+                    Product.ean,
+                    Product.type_product,
+                    ProductsName.name.label("product_name"),
+                    ProductsProducer.name.label("product_producer"),
+                    ProductsCountry.name.label("product_country")
                 )
-                .join(Mark)
-                .join(Product)  # JOIN с таблицей Product
+                .select_from(Batch)
+                .join(subquery, subquery.c.batch_id == Batch.id)  # Условие INNER JOIN
+                .join(Product)
                 .join(Nomenclature)
-                .join(ProductsCountry)  # JOIN с таблицей ProductsCountry
-                .join(ProductsName)  # JOIN с таблицей ProductsName
+                .join(ProductsCountry)
+                .join(ProductsName)
                 .join(ProductsProducer)
             )
             result = await self.session.execute(query)
             data = result.mappings().all()
-            
+
             data_storage = [DataStorageSchema(**i) for i in data]
             
             return ResponseDataStorageSchema(data=data_storage, status="ok", code=200)

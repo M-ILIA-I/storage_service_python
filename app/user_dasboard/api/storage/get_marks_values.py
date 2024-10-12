@@ -9,7 +9,7 @@ router = APIRouter()
 
 
 @router.post("/getMarksData", responses={200:{"model": ResponseMarksSchema}})
-async def get_storage_data(
+async def get_marks_data(
     handler: Annotated[StotageHandler, Depends(StotageHandler)],
     request_data: MarksDataRequestSchema,
     # user = Depends(get_current_user)

@@ -10,6 +10,6 @@ router = APIRouter()
 @router.get("/getStorageData", responses={200:{"model": ResponseDataStorageSchema}})
 async def get_storage_data(
     handler: Annotated[StotageHandler, Depends(StotageHandler)],
-    user = Depends(get_current_user)
+    # user = Depends(get_current_user)
 ):
     return await handler.get_storage_data()
