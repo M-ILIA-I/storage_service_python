@@ -1,2 +1,2 @@
-from fastapi import Depends
+from fastapi import Depends, APIRouter
 from typing import Annotated

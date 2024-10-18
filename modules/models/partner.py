@@ -21,6 +21,6 @@ class Partner(Base):
     infobankbik: str = Column(String)
     infotreaty: str = Column(String)
     infotreatycreate: datetime = Column(TIMESTAMP)
-    infodirector: str = Column(str)
+    infodirector: str = Column(String)
     infomainbuch: str = Column(String)
     infounloadingaddress: str = Column(String)
