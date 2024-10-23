@@ -1,4 +1,5 @@
 from .types import *
+from .batch import Batch
 
 
 class TypeMark(enum.Enum):
@@ -11,7 +12,9 @@ class Mark(Base):
     
     id: int = Column(Integer, primary_key=True)
     batch_id: int = Column(Integer, ForeignKey("batches.id", ondelete="cascade", onupdate="cascade"))
-    uniq_code: uuid = Column(Uuid)
-    value: str = Column(String)
-    type_mark: TypeMark = Column("type_mark", Enum(TypeMark))
-    is_sold: bool = Column(Boolean)
+    uniq_code: uuid = Column(Uuid, nullable=False)
+    value: str = Column(String, nullable=False)
+    type_mark: TypeMark = Column("type_mark", Enum(TypeMark), nullable=False)
+    is_sold: bool = Column(Boolean, nullable=False)
+    
+    batch: Mapped[Batch] = relationship(Batch)

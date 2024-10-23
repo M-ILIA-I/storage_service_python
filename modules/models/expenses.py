@@ -7,13 +7,13 @@ class Expenses(Base):
     __tablename__ = "docs_elems_expenses"
     
     id: int = Column(Integer, primary_key=True)
-    device_id: int = Column(Integer, index=True)
+    device_id: int = Column(Integer, index=True, nullable=False)
     document_id: int = Column(Integer, ForeignKey("documents.id"), index=True)
-    docs_elems_series_id: int = Column(Integer, ForeignKey("docs_elems_series.id"))
-    dtform: datetime = Column(TIMESTAMP)
-    numreserve: int = Column(Integer)
-    useredited_id: int = Column(Integer)
+    serie_id: int = Column(Integer, ForeignKey("docs_elems_series.id"))
+    dt_from: datetime = Column(TIMESTAMP, nullable=False)
+    num_reserve: int = Column(Integer, nullable=False)
+    user_edited_id: int = Column(Integer, nullable=False)
     
     document: Mapped[Document] = relationship(Document)
-    docs_elems_series: Mapped[Series] = relationship(Series)
+    serie: Mapped[Series] = relationship(Series)
     

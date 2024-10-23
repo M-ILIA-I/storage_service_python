@@ -8,19 +8,28 @@ class TypeDocument(enum.Enum):
     REVALUATION = 4
 
 
+class DocumentState(enum.Enum):
+    INITIAL = 1
+    PENDING = 2
+    ON_DEVICE = 3
+    FROM_DEVICE = 4
+    DONE = 5
+
+
 class Document(Base):
     __tablename__ = "documents"
     
     id: int = Column(Integer, primary_key=True)
-    device_id: int = Column(Integer, index=True)
+    device_id: int = Column(Integer, index=True, nullable=False)
     partner_id: int = Column(Integer, ForeignKey("partners.id"), index=True)
-    type_document: TypeDocument = Column("type_document", Enum(TypeDocument))
-    useredited_id: int = Column(Integer, index=True)
-    serdocument: str = Column(String)
-    numdocument: str = Column(String)
-    dtexecute: datetime = Column(TIMESTAMP)
-    dtdocument: datetime = Column(TIMESTAMP)
-    numdocumentsrc: str = Column(String)
+    type_document: TypeDocument = Column("type_document", Enum(TypeDocument), nullable=False)
+    state: DocumentState = Column("document_state", Enum(DocumentState), nullable=False)
+    user_edited_id: int = Column(Integer, index=True, nullable=False)
+    ser_document: str = Column(String)
+    num_document: str = Column(String)
+    dt_execute: datetime = Column(TIMESTAMP)
+    dt_document: datetime = Column(TIMESTAMP)
+    num_document_src: str = Column(String)
     
     partner: Mapped[Partner] = relationship(Partner)
     

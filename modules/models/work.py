@@ -6,7 +6,7 @@ class Work(Base):
     __tablename__ = "docs_elems_work"
     
     id: int = Column(Integer, primary_key=True)
-    device_id: int = Column(Integer, index=True)
+    device_id: int = Column(Integer, index=True, nullable=False)
     document_id: int = Column(Integer, ForeignKey("documents.id"))
     
     document: Mapped[Document] = relationship(Document)
