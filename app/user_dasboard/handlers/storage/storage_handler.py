@@ -9,7 +9,6 @@ from modules.models.product import Product
 from modules.models.products_country import ProductsCountry
 from modules.models.products_name import ProductsName
 from modules.models.products_producer import ProductsProducer
-from modules.models.nomenclature import Nomenclature
 from modules.models.mark import Mark
 from modules.schemas.storage_schemas import MarksDataRequestSchema, ResponseMarksSchema, MarksData
 
@@ -37,9 +36,12 @@ class StotageHandler():
                 select(
                     Product.id.label("product_id"),
                     Batch.id.label("batch_id"),
-                    Batch.part,
+                    Batch.device_id,
                     Batch.price,
                     Batch.quantity,
+                    Batch.dt_send,
+                    Batch.dt_update,
+                    Batch.dt_create,
                     subquery.c.uniq_code.label("uniq_code"),
                     Product.ean,
                     Product.type_product,
@@ -50,7 +52,6 @@ class StotageHandler():
                 .select_from(Batch)
                 .join(subquery, subquery.c.batch_id == Batch.id)  # Условие INNER JOIN
                 .join(Product)
-                .join(Nomenclature)
                 .join(ProductsCountry)
                 .join(ProductsName)
                 .join(ProductsProducer)

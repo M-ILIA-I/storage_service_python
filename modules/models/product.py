@@ -13,9 +13,9 @@ class Product(Base):
     __tablename__ = "products"
     
     id: int = Column(Integer, primary_key=True)
-    name_id: int = Column(Integer, ForeignKey("products.id"), nullable=False, index=True)
-    producer_id: int = Column(Integer, ForeignKey("products.id"), nullable=False, index=True)
-    country_id: int = Column(Integer, ForeignKey("products.id"), nullable=False, index=True)
+    name_id: int = Column(Integer, ForeignKey("products_name.id"), nullable=False, index=True)
+    producer_id: int = Column(Integer, ForeignKey("products_producer.id"), nullable=False, index=True)
+    country_id: int = Column(Integer, ForeignKey("products_country.id"), nullable=False, index=True)
     ean: str = Column(String, nullable=False)
     type_product: TypeProduct = Column("type_product", Enum(TypeProduct), nullable=False, comment="1 - продукт, 2 - услуга")
     

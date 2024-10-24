@@ -1,6 +1,7 @@
 from pydantic import BaseModel
 from uuid import UUID
 from typing import List
+from datetime import datetime
 
 
 class ProductsNameSchema(BaseModel):
@@ -50,10 +51,13 @@ class MarkSchema(BaseModel):
 
 class BatchSchema(BaseModel):
     id: int
+    device_id: int
     product_id: int
-    part: int
     price: float
     quantity: float
+    dt_send: datetime
+    dt_update: datetime
+    dt_create: datetime
     
     class Config():
         from_attributes = True
@@ -62,9 +66,12 @@ class BatchSchema(BaseModel):
 class DataStorageSchema(BaseModel):
     batch_id: int
     product_id: int
-    part: int
+    device_id: int
     price: float
     quantity: float
+    dt_send: datetime
+    dt_update: datetime
+    dt_create: datetime
     uniq_code: UUID | None
     ean: str
     type_product: str
