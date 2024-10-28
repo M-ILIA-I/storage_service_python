@@ -8,6 +8,7 @@ class SeriesSchema(BaseModel):
     device_id: int  | None
     batch_id: int  | None
     document_id: int | None
+    partner_short_name: str
     dt_expiration: datetime | None 
     num_came: float  | None
     num_rest: float  | None
