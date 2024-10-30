@@ -88,12 +88,16 @@ class ResponseDataStorageSchema(BaseModel):
     
 class MarksDataRequestSchema(BaseModel):
     batch_id: int
-    uniq_code: UUID
+    uniq_code: UUID | None
     
 
 class MarksData(BaseModel):
+    product_name: str = ""
+    batch_id: int = 0
+    device_name: str = ""
     UKZ: str | None = "-"
     SI: str | None = "-"
+    dt_update: datetime = ""
     is_sold: bool | None = False
     
 
@@ -102,4 +106,15 @@ class ResponseMarksSchema(BaseModel):
     code: int
     data: MarksData
     
+    
+class RequestEditMarksDataSchema(BaseModel):
+    batch_id: int
+    UKZ: str | None
+    SI: str | None
+        
+
+class ResponseEditMarksSchema(BaseModel):
+    status: str
+    code: int
+    data: int
     
