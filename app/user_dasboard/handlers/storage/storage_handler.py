@@ -59,10 +59,15 @@ class StorageHandler():
                 .join(ProductsProducer)
             )
             result = await self.session.execute(query)
-            data = result.mappings()
+            data = result.mappings().fetchall()
             
             data_storage = [DataStorageSchema(**i) for i in data]
-            
+            devices = {}
+            for i in data_storage:
+                if i.device_id not in devices:
+                    device = await self.session_auth.get(Device, i.device_id)
+                    devices[i.device_id] = device.name
+                i.device_name = devices[i.device_id]
             return ResponseDataStorageSchema(data=data_storage, status="ok", code=200)
                 
         except HTTPException as e:

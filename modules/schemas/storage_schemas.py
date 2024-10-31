@@ -67,6 +67,7 @@ class DataStorageSchema(BaseModel):
     batch_id: int
     product_id: int
     device_id: int
+    device_name: str = ""
     price: float
     quantity: float
     dt_send: datetime
