@@ -1,4 +1,4 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, ConfigDict
 from datetime import datetime
 from typing import List
 
@@ -20,8 +20,7 @@ class SeriesSchema(BaseModel):
     perc_nds: float  | None
     price_full: float  | None
     
-    class Config():
-        from_attributes = True
+    model_config = ConfigDict(from_attributes = True)
     
 class GetSeriesResponseSchema(BaseModel):
     status: str

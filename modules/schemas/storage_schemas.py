@@ -1,4 +1,4 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, ConfigDict
 from uuid import UUID
 from typing import List
 from datetime import datetime
@@ -8,24 +8,21 @@ class ProductsNameSchema(BaseModel):
     id: int
     name: str
     
-    class Config():
-        from_attributes = True
+    model_config = ConfigDict(from_attributes = True)
     
     
 class ProductsProducerSchema(BaseModel):
     id: int
     name: str
     
-    class Config():
-        from_attributes = True
+    model_config = ConfigDict(from_attributes = True)
     
     
 class ProductsCountrySchema(BaseModel):
     id: int
     name: str
 
-    class Config():
-        from_attributes = True
+    model_config = ConfigDict(from_attributes = True)
 
 class ProductsSchema(BaseModel):
     id: int 
@@ -33,8 +30,7 @@ class ProductsSchema(BaseModel):
     ean: str
     type_product: str
     
-    class Config():
-        from_attributes = True
+    model_config = ConfigDict(from_attributes = True)
 
 
 class MarkSchema(BaseModel):
@@ -45,8 +41,7 @@ class MarkSchema(BaseModel):
     type_mark: str
     is_sold: bool
     
-    class Config():
-        from_attributes = True
+    model_config = ConfigDict(from_attributes = True)
     
 
 class BatchSchema(BaseModel):
@@ -59,8 +54,7 @@ class BatchSchema(BaseModel):
     dt_update: datetime
     dt_create: datetime
     
-    class Config():
-        from_attributes = True
+    model_config = ConfigDict(from_attributes = True)
         
 
 class DataStorageSchema(BaseModel):
