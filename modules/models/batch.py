@@ -1,4 +1,5 @@
 from .types import *
+from .product import Product
 
 
 class Batch(Base):
@@ -13,4 +14,5 @@ class Batch(Base):
     dt_update: datetime = Column(TIMESTAMP, nullable=False)
     dt_create: datetime = Column(TIMESTAMP, nullable=False)
     
+    product: Mapped[Product] = relationship(Product)
     
