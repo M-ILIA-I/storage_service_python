@@ -19,7 +19,6 @@ class Sale(Base):
     number_sold: float = Column(Double, nullable=False)
     price_sold: float = Column(Double, nullable=False)
     discount_sum: float = Column(Double, nullable=False)
-    is_send: bool = Column(Boolean, nullable=False)
     mark_uniq_code: uuid = Column(Uuid, nullable=False)
     
     batch: Mapped[Batch] = relationship(Batch)

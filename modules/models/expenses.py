@@ -8,7 +8,7 @@ class Expenses(Base):
     
     id: int = Column(Integer, primary_key=True)
     device_id: int = Column(Integer, index=True, nullable=False)
-    document_id: int = Column(Integer, ForeignKey("documents.id"), index=True)
+    document_id: int = Column(Integer, ForeignKey("documents.id", ondelete="cascade"), index=True)
     serie_id: int = Column(Integer, ForeignKey("docs_elems_series.id"))
     dt_from: datetime = Column(TIMESTAMP, nullable=False)
     num_reserve: int = Column(Integer, nullable=False)
