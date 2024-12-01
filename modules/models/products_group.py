@@ -1,7 +1,6 @@
 from .types import *
 
 
-
 class ProductsGroup(Base):
     __tablename__ = "products_groups"
     
@@ -9,3 +8,5 @@ class ProductsGroup(Base):
     parent_id: int = Column(Integer, ForeignKey("products_groups.id"))
     name: str = Column(String, nullable=False)
     formula: str = Column(String, nullable=True)
+    
+    parent = relationship("ProductsGroup", remote_side=[id], backref="children")

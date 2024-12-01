@@ -6,6 +6,13 @@ class TypeDocument(enum.Enum):
     EXPENSE = 2
     ORDER = 3
     REVALUATION = 4
+    
+    @classmethod
+    def get_name(cls, value):
+        for member in cls:
+            if member.value == value:
+                return member.name
+        return None
 
 
 class DocumentState(enum.Enum):
@@ -25,6 +32,8 @@ class Document(Base):
     type_document: TypeDocument = Column("type_document", Enum(TypeDocument), nullable=False)
     state: DocumentState = Column("document_state", Enum(DocumentState), nullable=False)
     user_edited_id: int = Column(Integer, index=True, nullable=False)
+    comment_device: str = Column(String, nullable=True)
+    photo_device: str = Column(String, comment="Путь к файлу", nullable=True)
     ser_document: str = Column(String)
     num_document: str = Column(String)
     dt_execute: datetime = Column(TIMESTAMP)

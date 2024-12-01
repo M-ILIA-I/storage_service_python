@@ -6,7 +6,7 @@ class TypeOperation(enum.Enum):
     SALE = 1
     REFUND = 2
     EXCHANGE = 3
-    
+
 class Sale(Base):
     __tablename__ = "sales"
     

@@ -1,24 +1,30 @@
 from pydantic import BaseModel, ConfigDict
 from datetime import datetime
-from typing import List
+from typing import List, Optional
 
 
 class SeriesSchema(BaseModel):
-    id: int | None
-    device_id: int  | None
-    batch_id: int  | None
-    document_id: int | None
-    partner_short_name: str
-    dt_expiration: datetime | None 
-    num_came: float  | None
-    num_rest: float  | None
-    price_ro: float  | None
-    perc_ws: float  | None
-    price_ws: float | None
-    perc_nds_in: float  | None
-    perc_rozn: float | None
-    perc_nds: float  | None
-    price_full: float  | None
+    id: Optional[int] = None
+    device_id: Optional[int] = None
+    device_name: Optional[str] = None
+    batch_id: Optional[int] = None
+    document_id: Optional[int] = None
+    partner_short_name: Optional[str] = None
+    dt_expiration: Optional[datetime] = None
+    num_came: Optional[float] = None
+    num_rest: Optional[float] = None
+    price_ro: Optional[float] = None
+    perc_ws: Optional[float] = None
+    price_ws: Optional[float] = None
+    perc_nds_in: Optional[float] = None
+    perc_rozn: Optional[float] = None
+    perc_nds: Optional[float] = None
+    price_full: Optional[float] = None
+    product_country: Optional[str] = None
+    product_name: Optional[str] = None
+    product_producer: Optional[str] = None
+    product_group: Optional[str] = None
+    ean: Optional[str] = None
     
     model_config = ConfigDict(from_attributes = True)
     
