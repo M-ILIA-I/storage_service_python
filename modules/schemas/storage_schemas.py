@@ -2,6 +2,7 @@ from pydantic import BaseModel, ConfigDict
 from uuid import UUID
 from typing import List
 from datetime import datetime
+from typing import Optional
 
 
 class ProductsNameSchema(BaseModel):
@@ -58,21 +59,24 @@ class BatchSchema(BaseModel):
         
 
 class DataStorageSchema(BaseModel):
-    batch_id: int
-    product_id: int
-    device_id: int
-    device_name: str = ""
-    price: float
-    quantity: float
-    dt_send: datetime
-    dt_update: datetime
-    dt_create: datetime
-    uniq_code: UUID | None
-    ean: str
-    type_product: str
-    product_name: str
-    product_producer: str
-    product_country: str
+    batch_id: Optional[int] = None
+    product_id: Optional[int] = None
+    device_id: Optional[int] = None
+    device_name: Optional[str] = ""
+    price: Optional[float] = None
+    quantity: Optional[float] = None
+    dt_send: Optional[datetime] = None
+    dt_update: Optional[datetime] = None
+    dt_create: Optional[datetime] = None
+    uniq_code: Optional[UUID] = None
+    ean: Optional[str] = None
+    group_name: Optional[str] = None
+    type_product: Optional[str] = None
+    product_name: Optional[str] = None
+    product_producer: Optional[str] = None
+    product_country: Optional[str] = None
+    
+    model_config = ConfigDict(from_attributes = True)
     
 
 class ResponseDataStorageSchema(BaseModel):

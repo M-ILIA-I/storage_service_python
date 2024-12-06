@@ -8,6 +8,7 @@ from modules.models.batch import Batch
 from modules.models.product import Product
 from modules.models.products_country import ProductsCountry
 from modules.models.products_name import ProductsName
+from modules.models.products_group import ProductsGroup
 from modules.models.products_producer import ProductsProducer
 from modules.models.mark import Mark
 from modules.schemas.storage_schemas import MarksDataRequestSchema, ResponseMarksSchema, MarksData, RequestEditMarksDataSchema, ResponseEditMarksSchema
@@ -36,8 +37,8 @@ class StorageHandler():
             # Основной запрос с INNER JOIN
             query = (
                 select(
-                    Product.id.label("product_id"),
                     Batch.id.label("batch_id"),
+                    Product.id.label("product_id"),
                     Batch.device_id,
                     Batch.price,
                     Batch.quantity,
@@ -46,6 +47,7 @@ class StorageHandler():
                     Batch.dt_create,
                     subquery.c.uniq_code.label("uniq_code"),
                     Product.ean,
+                    ProductsGroup.name.label("group_name"),
                     Product.type_product,
                     ProductsName.name.label("product_name"),
                     ProductsProducer.name.label("product_producer"),
@@ -54,20 +56,16 @@ class StorageHandler():
                 .select_from(Batch)
                 .outerjoin(subquery, subquery.c.batch_id == Batch.id)  # Условие INNER JOIN
                 .join(Product)
-                .join(ProductsCountry)
-                .join(ProductsName)
-                .join(ProductsProducer)
+                .outerjoin(ProductsGroup)
+                .outerjoin(ProductsCountry)
+                .outerjoin(ProductsName)
+                .outerjoin(ProductsProducer)
             )
             result = await self.session.execute(query)
             data = result.mappings().fetchall()
             
-            data_storage = [DataStorageSchema(**i) for i in data]
-            devices = {}
-            for i in data_storage:
-                if i.device_id not in devices:
-                    device = await self.session_auth.get(Device, i.device_id)
-                    devices[i.device_id] = device.name
-                i.device_name = devices[i.device_id]
+            data_storage = [DataStorageSchema.model_validate(i) for i in data]
+            
             return ResponseDataStorageSchema(data=data_storage, status="ok", code=200)
                 
         except HTTPException as e:
