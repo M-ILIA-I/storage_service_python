@@ -31,7 +31,7 @@ class Document(Base):
     partner_id: int = Column(Integer, ForeignKey("partners.id"), index=True)
     type_document: TypeDocument = Column("type_document", Enum(TypeDocument), nullable=False)
     state: DocumentState = Column("document_state", Enum(DocumentState), nullable=False)
-    user_edited_id: int = Column(Integer, index=True, nullable=False)
+    user_edited_id: int = Column(Integer, index=True)
     comment_device: str = Column(String, nullable=True)
     photo_device: str = Column(String, comment="Путь к файлу", nullable=True)
     ser_document: str = Column(String)
