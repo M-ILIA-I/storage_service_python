@@ -14,8 +14,8 @@ class DiscountCard(Base):
     discount_id: int = Column(Integer, ForeignKey("discounts.id", ondelete="cascade", onupdate="cascade"), nullable=False)
     number_card: str = Column(String, nullable=False)
     amount_bonuses: float = Column(Double, nullable=False)
-    amount_checks: int = Column(Integer, nullable=False)
-    number_chacks: int = Column(Integer, nullable=False)
+    sum_checks: int = Column(Integer, nullable=False)
+    number_checks: int = Column(Integer, nullable=False)
     
     client: Mapped[Client] = relationship(Client)
     discount: Mapped[Discount] = relationship(Discount)

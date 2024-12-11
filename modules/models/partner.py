@@ -5,6 +5,7 @@ class Partner(Base):
     __tablename__ = "partners"
     
     id: int = Column(Integer, primary_key=True)
+    invoice_params_id: int = Column(Integer, ForeignKey("invoice_params.id", ondelete="cascade", onupdate="cascade"))
     name_short: str = Column(String, nullable=False)
     name_full: str = Column(String, nullable=False)
     name_subdivision: str = Column(String)

@@ -16,8 +16,8 @@ class Mark(Base):
     value: str = Column(String, nullable=False)
     type_mark: TypeMark = Column("type_mark", Enum(TypeMark), nullable=False)
     is_sold: bool = Column(Boolean, nullable=False)
-    dt_send: datetime = Column(TIMESTAMP, nullable=False, server_default=func.now())
-    dt_update: datetime = Column(TIMESTAMP, nullable=False, server_default=func.now())
-    dt_create: datetime = Column(TIMESTAMP, nullable=False, server_default=func.now())
+    # dt_send: datetime = Column(TIMESTAMP, nullable=False, server_default=func.now())
+    # dt_update: datetime = Column(TIMESTAMP, nullable=False, server_default=func.now())
+    # dt_create: datetime = Column(TIMESTAMP, nullable=False, server_default=func.now())
     
     batch: Mapped[Batch] = relationship(Batch)
