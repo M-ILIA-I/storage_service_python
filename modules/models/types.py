@@ -18,3 +18,29 @@ class TypeValue(enum.Enum):
     TEXT = 3
     DOUBLE = 4
     TIMESTAMP = 5
+    
+    @classmethod
+    def from_string(cls, string):
+        try:
+            int(string)
+            return cls.INT
+        except ValueError:
+            pass
+        
+        if string.lower() in {'true', 'false'}:
+            return cls.BOOL
+
+        try:
+            float(string)
+            return cls.DOUBLE
+        except ValueError:
+            pass
+
+        for fmt in ("%Y-%m-%d", "%Y-%m-%d %H:%M:%S"):  # Добавьте нужные форматы
+            try:
+                datetime.datetime.strptime(string, fmt)
+                return cls.TIMESTAMP
+            except ValueError:
+                continue
+            
+        return cls.TEXT
