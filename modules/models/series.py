@@ -7,7 +7,6 @@ class Series(Base):
     __tablename__ = "docs_elems_series"
     
     id: int = Column(Integer, primary_key=True)
-    device_id: int = Column(Integer, index=True, nullable=False)
     batch_id: int = Column(Integer, ForeignKey("batches.id"), index=True, nullable=False)
     document_id: int = Column(Integer, ForeignKey("documents.id", ondelete="cascade"), index=True, nullable=False)
     dt_expiration: datetime = Column(TIMESTAMP, nullable=False)

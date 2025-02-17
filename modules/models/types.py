@@ -38,7 +38,7 @@ class TypeValue(enum.Enum):
 
         for fmt in ("%Y-%m-%d", "%Y-%m-%d %H:%M:%S"):  # Добавьте нужные форматы
             try:
-                datetime.datetime.strptime(string, fmt)
+                datetime.strptime(string, fmt)
                 return cls.TIMESTAMP
             except ValueError:
                 continue

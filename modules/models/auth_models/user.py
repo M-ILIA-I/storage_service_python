@@ -1,5 +1,5 @@
 from ..types import * 
-
+from .firm import Firm
 
 class User(Base):
     __tablename__ = "users"

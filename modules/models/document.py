@@ -27,7 +27,7 @@ class Document(Base):
     __tablename__ = "documents"
     
     id: int = Column(Integer, primary_key=True)
-    device_id: int = Column(Integer, index=True, nullable=False)
+    store_id: int = Column(Integer, index=True, nullable=False)
     partner_id: int = Column(Integer, ForeignKey("partners.id"), index=True)
     type_document: TypeDocument = Column("type_document", Enum(TypeDocument), nullable=False)
     state: DocumentState = Column("document_state", Enum(DocumentState), nullable=False)

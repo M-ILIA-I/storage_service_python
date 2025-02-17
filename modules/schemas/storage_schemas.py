@@ -47,7 +47,7 @@ class MarkSchema(BaseModel):
 
 class BatchSchema(BaseModel):
     id: int
-    device_id: int
+    store_id: int
     product_id: int
     price: float
     quantity: float

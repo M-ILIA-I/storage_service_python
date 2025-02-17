@@ -39,7 +39,7 @@ class StorageHandler():
                 select(
                     Batch.id.label("batch_id"),
                     Product.id.label("product_id"),
-                    Batch.device_id,
+                    Batch.store_id,
                     Batch.price,
                     Batch.quantity,
                     Batch.dt_send,
